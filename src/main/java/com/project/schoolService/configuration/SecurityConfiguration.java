@@ -20,7 +20,6 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
     private final JwtFilter jwtFilter;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-
     public SecurityConfiguration(AuthenticationProvider authenticationProvider,
                                  LogoutHandler logoutHandler, JwtFilter jwtFilter,
                                  AuthenticationEntryPoint authenticationEntryPoint) {

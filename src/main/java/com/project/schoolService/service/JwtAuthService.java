@@ -70,7 +70,6 @@ public class JwtAuthService {
                         .build()
         );
     }
-
     private void revokeUserTokens(com.project.schoolService.model.User user) {
         List<Token> validUserTokens = tokenRepository.findTokensByUserIdAndRevoked(user.getId(), false)
                 .orElseThrow(() -> new RuntimeException("Couldn't revoke user tokens."));

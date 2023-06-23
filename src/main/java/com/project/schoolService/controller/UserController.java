@@ -6,7 +6,6 @@ import com.project.schoolService.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -22,13 +21,14 @@ public class UserController {
         userService.delete();
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+/*
     @PutMapping("/update")
     public ResponseEntity<Void> update(@RequestBody UserRequest user) {
         userService.update(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+ */
     @GetMapping("/info")
     public ResponseEntity<UserResponse> getUser() {
         return ResponseEntity.ok(userService.getUser());
