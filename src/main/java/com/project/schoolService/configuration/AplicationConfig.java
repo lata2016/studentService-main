@@ -48,7 +48,7 @@ public class AplicationConfig {
                 registry.addMapping("/**")
                         .allowedHeaders("*")
                         .allowedMethods("GET", "POST", "DELETE", "PUT")
-                        .allowedOrigins("http://localhost:3000");
+                        .allowedOrigins("http://localhost:8080");
             }
         };
     }

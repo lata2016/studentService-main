@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Builder
 @Entity
 @Table(name = "tokens")
@@ -26,14 +27,6 @@ public class Token {
         this.revoked = revoked;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Integer getTokenId() {
         return tokenId;
     }
@@ -50,6 +43,13 @@ public class Token {
         this.token = token;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public boolean isRevoked() {
         return revoked;

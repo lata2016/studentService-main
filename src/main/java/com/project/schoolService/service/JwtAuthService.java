@@ -7,7 +7,6 @@ import com.project.schoolService.model.*;
 import com.project.schoolService.repository.TokenRepository;
 import com.project.schoolService.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Builder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -70,8 +69,19 @@ public class JwtAuthService {
                         .build()
         );
     }
+    /*
     private void revokeUserTokens(com.project.schoolService.model.User user) {
         List<Token> validUserTokens = tokenRepository.findTokensByUserIdAndRevoked(user.getId(), false)
+                .orElseThrow(() -> new RuntimeException("Couldn't revoke user tokens."));
+        validUserTokens.forEach(
+                token -> token.setRevoked(true)
+        );
+        tokenRepository.saveAll(validUserTokens);
+    }
+
+     */
+    private void revokeUserTokens(User user) {
+        List<Token> validUserTokens = tokenRepository.findTokensByIdAndRevoked(user.getId(), false)
                 .orElseThrow(() -> new RuntimeException("Couldn't revoke user tokens."));
         validUserTokens.forEach(
                 token -> token.setRevoked(true)

@@ -50,7 +50,7 @@ public class UserService {
     public void delete() {
         try {
             User user = authenticationService.getUser();
-            tokenRepository.deleteAllByUserId(user.getId());
+            tokenRepository.deleteAllById(user.getId());
             userRepository.delete(user);
         } catch (Exception e) {
             throw new RuntimeException("Couldn't delete user!\n" + e.getMessage());
