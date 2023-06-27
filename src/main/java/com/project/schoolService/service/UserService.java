@@ -65,7 +65,6 @@ public class UserService {
             throw new RuntimeException("Couldn't delete user!\n" + e.getMessage());
         }
     }
-
     public Optional<User> findByEmail(String email){
         return userRepository.findByEmail(email);
     }
