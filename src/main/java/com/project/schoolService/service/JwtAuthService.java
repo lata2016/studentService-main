@@ -69,17 +69,6 @@ public class JwtAuthService {
                         .build()
         );
     }
-    /*
-    private void revokeUserTokens(com.project.schoolService.model.User user) {
-        List<Token> validUserTokens = tokenRepository.findTokensByUserIdAndRevoked(user.getId(), false)
-                .orElseThrow(() -> new RuntimeException("Couldn't revoke user tokens."));
-        validUserTokens.forEach(
-                token -> token.setRevoked(true)
-        );
-        tokenRepository.saveAll(validUserTokens);
-    }
-
-     */
     private void revokeUserTokens(User user) {
         List<Token> validUserTokens = tokenRepository.findTokensByIdAndRevoked(user.getId(), false)
                 .orElseThrow(() -> new RuntimeException("Couldn't revoke user tokens."));

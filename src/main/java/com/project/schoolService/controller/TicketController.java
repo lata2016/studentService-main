@@ -15,7 +15,8 @@ import java.util.List;
 public class TicketController {
     private TicketService ticketService;
     private LaptopPartService laptopPartService;
-
+    
+    //dependency injection
     public TicketController(TicketService ticketService,LaptopPartService laptopPartService){
         this.ticketService = ticketService;
         this.laptopPartService =laptopPartService;

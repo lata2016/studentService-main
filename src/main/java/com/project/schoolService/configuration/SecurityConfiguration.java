@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
-   // private final LogoutHandler logoutHandler;
     private final JwtFilter jwtFilter;
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
@@ -24,12 +23,10 @@ public class SecurityConfiguration {
                                   JwtFilter jwtFilter,
                                  AuthenticationEntryPoint authenticationEntryPoint) {
         this.authenticationProvider = authenticationProvider;
-        //this.logoutHandler = logoutHandler;
         this.jwtFilter = jwtFilter;
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
-    //shiko prape
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -55,72 +52,3 @@ public class SecurityConfiguration {
 
     }
 }
-
-
-    /*
-    private UserService userService;
-
-    public SecurityConfiguration(UserService userService) {
-        this.userService = userService;
-    }
-
-
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
-        }
-
-    @Override
-     protected void configure(HttpSecurity http) throws Exception {
-         http.csrf().disable()
-                 .authorizeRequests()
-                 .antMatchers("/login").permitAll() // Allow access to the login API
-                 .antMatchers("/laptop-part/**").hasAnyRole("SIMPLE_USER", "ADMIN")
-                 .antMatchers("/ticket/**").hasAnyRole("SIMPLE_USER", "ADMIN")
-                 .antMatchers("/user/**").hasRole("ADMIN")
-                 .anyRequest().authenticated()
-                 .and()
-                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        }
-    }
-
-    /*
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authentication = new DaoAuthenticationProvider();
-        authentication.setUserDetailsService(userService);
-        authentication.setPasswordEncoder(passwordEncoder());
-        return authentication;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login").permitAll() // Allow access to the login API
-                .antMatchers("/laptop-part/**").hasAnyRole("SIMPLE_USER", "ADMIN")
-                .antMatchers("/ticket/**").hasAnyRole("SIMPLE_USER", "ADMIN")
-                .antMatchers("/user/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JwtAuthenticationController(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
-
-     */
-
-
-
-
-
-

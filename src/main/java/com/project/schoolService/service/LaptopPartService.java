@@ -6,7 +6,6 @@ import com.project.schoolService.repository.LaptopPartRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LaptopPartService {

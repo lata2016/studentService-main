@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/laptop-part")
 public class LaptopPartController {
     private LaptopPartService laptopPartService;
-
+    //dependency injection
     public LaptopPartController(LaptopPartService laptopPartService) {
         this.laptopPartService = laptopPartService;
     }
