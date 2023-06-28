@@ -24,8 +24,6 @@ public class User  implements UserDetails {
     private String email;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
-
-
     @OneToMany(mappedBy = "user")
     private List<Ticket> tickets;
 

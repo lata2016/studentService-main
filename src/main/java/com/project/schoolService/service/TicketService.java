@@ -47,6 +47,26 @@ public class TicketService {
 
         return ticketRepository.save(ticket);
     }
+    public Ticket closeTicket(Long id) {
+        Optional<Ticket> optionalTicket = ticketRepository.findById(id);
+        Ticket ticket = optionalTicket.get();
+        if (ticket.getStatus() == TicketStatus.CLOSED) {
+            throw new IllegalStateException("Ticket is already closed");
+        }
+
+        ticket.setStatus(TicketStatus.CLOSED);
+        return ticketRepository.save(ticket);
+    }
+    public Ticket openTicket(Long id) {
+        Optional<Ticket> optionalTicket = ticketRepository.findById(id);
+        Ticket ticket = optionalTicket.get();
+        if (ticket.getStatus() == TicketStatus.OPEN) {
+            throw new IllegalStateException("Ticket is already closed");
+        }
+
+        ticket.setStatus(TicketStatus.OPEN);
+        return ticketRepository.save(ticket);
+    }
 
 
     public Ticket getTicketById(Long id) {

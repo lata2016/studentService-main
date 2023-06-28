@@ -1,6 +1,7 @@
 package com.project.schoolService.controller;
 
 import com.project.schoolService.model.Ticket;
+import com.project.schoolService.model.TicketStatus;
 import com.project.schoolService.service.LaptopPartService;
 import com.project.schoolService.service.TicketService;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,24 @@ import java.util.List;
 public class TicketController {
     private TicketService ticketService;
     private LaptopPartService laptopPartService;
-    
+
     //dependency injection
     public TicketController(TicketService ticketService,LaptopPartService laptopPartService){
         this.ticketService = ticketService;
         this.laptopPartService =laptopPartService;
     }
+    @PostMapping("/{id}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Ticket updateTicketStatus(@PathVariable Long id, @RequestParam TicketStatus status) {
+        if (status == TicketStatus.CLOSED) {
+            return ticketService.closeTicket(id);
+        } else if (status == TicketStatus.OPEN) {
+            return ticketService.openTicket(id);
+        } else {
+            throw new IllegalArgumentException("Invalid ticket status");
+        }
+    }
+
     @GetMapping("/getAllTicket")
     @PreAuthorize("hasAuthority('ADMIN','SIMPLE_USER')")
     public ResponseEntity<List<Ticket>> getAllTicket(){
@@ -28,7 +41,7 @@ public class TicketController {
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
     @GetMapping("/findTicket/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN',SIMPLE_USER)")
     public ResponseEntity<Ticket> findTicketById(@PathVariable("id") Long id){
         Ticket tickets = ticketService.getTicketById(id);
         return new ResponseEntity<>(tickets, HttpStatus.OK);
@@ -45,24 +58,12 @@ public class TicketController {
         Ticket updateTicket = ticketService.updateTicket(ticket);
         return new ResponseEntity<>(updateTicket,HttpStatus.OK);
     }
-    @PostMapping("/add")
-    public ResponseEntity<Ticket> addEmployees(@RequestBody Ticket ticket){
-        Ticket newTicket = ticketService.addTicket(ticket);
-        return new ResponseEntity<>(newTicket,HttpStatus.CREATED);
-    }
 
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteTicket/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> deleteTicket(@PathVariable("id") Long id){
         ticketService.deleteTicket(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-    //rikthehu tek te dyja metodat
-    @PostMapping("/addTicket")
-    public ResponseEntity<Ticket> addTicket(@RequestBody Ticket ticket){
-        Ticket newTicket = ticketService.addTicket(ticket);
-        return new ResponseEntity<>(newTicket,HttpStatus.CREATED);
     }
 
 
